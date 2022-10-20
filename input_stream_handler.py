@@ -1,18 +1,20 @@
 import pyaudio
 import math
 import numpy
-import time
-import librosa
+from audio_data_processing import AudioDataProcessing
 
-class AudioHandler():
+class InputStreamHandler():
     def __init__(self):
         self.pyAudio = pyaudio.PyAudio()
         self.stream: pyaudio.Stream
         self.microphone_device_index = -1
         self.microphone_sample_rate = -1
         self.CHUNKS = 1024
-        self.FFT_FREQUENCY_BINS = 1024
+        self.FFT_FREQUENCY_BINS = 256
+        self.audioProcessing = None
 
+
+    # sets the input of the audio stream, taking a substring of the device name
     def set_input_device(self, name=""):
         host_info = self.pyAudio.get_host_api_info_by_index(0)
         host_devices_number = host_info.get('deviceCount')
@@ -25,12 +27,11 @@ class AudioHandler():
             if device_has_input_channels and name in device_name:
                 self.microphone_device_index = i
                 self.microphone_sample_rate = math.floor(self.pyAudio.get_device_info_by_host_api_device_index(0, i).get('defaultSampleRate'))
+                self.audioProcessing = AudioDataProcessing(self.microphone_sample_rate)
                 break
-    
-    def stream_callback(in_data, frame_count, time_info, status):
-        print(in_data)
-        return (in_data, pyaudio.paContinue)
 
+
+    # creates an audio input stream
     def init_stream(self):
         self.stream = self.pyAudio.open(format=pyaudio.paFloat32,
                                         frames_per_buffer=self.CHUNKS,
@@ -39,41 +40,24 @@ class AudioHandler():
                                         input=True, 
                                         input_device_index=self.microphone_device_index)
 
+
+    # starts the stream
     def stream_start(self):
         self.stream.start_stream()
         while self.stream.is_active():
             data = numpy.fromstring(self.stream.read(self.CHUNKS, exception_on_overflow=False))
+            self.stream_callback(data=data)
+
+
+    # function called with the data received from the live stream
+    def stream_callback(self, data=[]):
             fft_matrix = numpy.fft.fft(data, n=self.FFT_FREQUENCY_BINS)
-            loudest_frequency =  self.get_loudest_frequency_from_fft(fft=fft_matrix)
-            print(loudest_frequency)
-    
-    def get_loudest_frequency_from_fft(self, fft=[]):
-        frequencies = numpy.fft.rfftfreq(round(len(fft)) * 2 -1)
+            high_frequency, low_frequency =  self.audioProcessing.get_loudest_frequency_range_from_fft(fft=fft_matrix)
+            print(f'{round(low_frequency)} Hz - {round(high_frequency)} Hz')
 
-        hz_frequencies = frequencies * self.microphone_sample_rate
-        absolute_fft = numpy.abs(fft)
 
-        filtered_fft = numpy.where(hz_frequencies < 20000, absolute_fft, 0)
-
-        loudest_high_index = numpy.argmax(filtered_fft)
-        loudest_low_index = loudest_high_index -1
-
-        loudest_high_range = hz_frequencies[loudest_high_index]
-
-        if loudest_low_index > -1:
-            loudest_low_range = hz_frequencies[loudest_low_index]
-        else:
-            loudest_low_range = 0
-
-        return f'{round(loudest_low_range)} Hz - {round(loudest_high_range)} Hz'
-
+    # stops the stream
     def stream_end(self):
         self.stream.stop_stream()
         self.stream.close()
         self.pyAudio.terminate()  
-
-audioHandler = AudioHandler()
-# audioHandler.set_input_device(name="Jabra EVOLVE LINK: USB Audio")
-audioHandler.set_input_device(name="KT USB Audio")
-audioHandler.init_stream()
-audioHandler.stream_start()
