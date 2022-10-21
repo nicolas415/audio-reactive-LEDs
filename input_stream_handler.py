@@ -10,7 +10,7 @@ class InputStreamHandler():
         self.microphone_device_index = -1
         self.microphone_sample_rate = -1
         self.CHUNKS = 1024
-        self.FFT_FREQUENCY_BINS = 256
+        self.FFT_FREQUENCY_BINS = 1024
         self.audioProcessing = None
 
 
@@ -52,8 +52,18 @@ class InputStreamHandler():
     # function called with the data received from the live stream
     def stream_callback(self, data=[]):
             fft_matrix = numpy.fft.fft(data, n=self.FFT_FREQUENCY_BINS)
-            high_frequency, low_frequency =  self.audioProcessing.get_loudest_frequency_range_from_fft(fft=fft_matrix)
-            print(f'{round(low_frequency)} Hz - {round(high_frequency)} Hz')
+            self.audioProcessing.set_fft(fft=fft_matrix)
+
+            # for index, amplitude in enumerate(fft_matrix):
+            #     volume = self.audioProcessing.get_volume_of_fft_index(index=index)
+            #     frequency = self.audioProcessing.get_frequency_of_fft_index(index=index)
+
+
+            high_frequency, low_frequency =  self.audioProcessing.get_loudest_frequency_range_from_fft()
+            audio_range_volume = self.audioProcessing.get_loudest_volume_from_fft()
+
+            print(f'{round(low_frequency)} Hz - {round(high_frequency)} Hz, {audio_range_volume} dB')
+            # print(audio_range_volume)
 
 
     # stops the stream
