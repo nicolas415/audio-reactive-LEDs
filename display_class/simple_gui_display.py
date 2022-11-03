@@ -1,21 +1,30 @@
 import PySimpleGUI
 from data.audio_state import audio_state
+from display_class.audio_formatter import AudioProcessor as AudioProcessorType
 
-class DisplayProcessor():
+class SimpleGuiDisplay():
 	"""
 	DISPLAY PROCESSOR
 	"""
-	def __init__(self, PySimpleGUI: PySimpleGUI):
+	def __init__(self, PySimpleGUI: PySimpleGUI, AudioProcessorClass: AudioProcessorType):
 		self.sg = PySimpleGUI
 		self.window: PySimpleGUI.Window
+		self.AudioProcessorClass = AudioProcessorClass
+		self.audioProcessor: AudioProcessorType
+		
 		self.audio_state: audio_state
 		self.layout_width = 1000
 		self.layout_height = 500
 		self.frame_timeout = 5
-		self.display = { 'bars': { 'column': 0, 'color': '', 'amplitude': 0}, 'bar_size': 10, 'bar_padding': 2 }
+		self.bar_size = 10
+		self.bar_padding = 2
+		self.bar_color = 'white'
+		self.amplitude: int
+		self.column: int
 
 	def init(self, audio_state):
 		self.audio_state = audio_state
+		self.audioProcessor = self.AudioProcessorClass(audio_state['sample_rate'])
 
 	def init_layout(self):
 		layout = [[self.sg.Graph(canvas_size=(self.layout_width, self.layout_height),
@@ -34,34 +43,34 @@ class DisplayProcessor():
 			self.process_formatted_audio()
 
 	def process_formatted_audio(self):
-		for col, val in enumerate(self.audio_state['formatted_audio']):
-			self.display['bars']['column'] = col
+		formatted_audio = self.audioProcessor.get_formatted_fft(self.audio_state['raw_audio'])
+		
+		for col, val in enumerate(formatted_audio):
+			self.column = col
 
 			for bar in range(0, int(val)):
-				self.display['bars']['amplitude'] = val
+				self.amplitude = val
 				
 				if bar < 3:
-					self.display['bars']['color'] = '#00FF0E'
+					self.bar_color = '#00FF0E'
 				elif bar < 6:
-					self.display['bars']['color'] = 'yellow'
+					self.bar_color = 'yellow'
 				elif bar < 9:
-					self.display['bars']['color'] = 'orange'
+					self.bar_color = 'orange'
 				else:
-					self.display['bars']['color'] = 'red'
+					self.bar_color = 'red'
 
 				self.render_animation(col, bar)
 
 
 	def render_animation(self, col, val):
-		barStep = self.display['bar_size']
-		pad = self.display['bar_padding']
+		barStep = self.bar_size
+		pad = self.bar_padding
 		# col = self.display['bars']['column']
 		# bar = self.display['bars']['amplitude']
-		color = self.display['bars']['color']
+		# color = self.display['bars']['color']
 		
 
 		self.window['graph'].draw_rectangle(top_left=((col*barStep)+pad, barStep*(val+1)),
 											bottom_right=((col*barStep)+barStep,(val*barStep)+pad),
-											line_color='black',
-											line_width=2,
-											fill_color='white')  # Conditional
+											fill_color=self.bar_color)  # Conditional

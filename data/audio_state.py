@@ -1,4 +1,5 @@
 from random import expovariate
 import numpy as np
 
-audio_state = { 'formatted_audio': np.array([]) }
+audio_state = { 'raw_audio': np.array([]),
+				'sample_rate': -1 }

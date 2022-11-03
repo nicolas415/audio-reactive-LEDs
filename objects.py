@@ -1,10 +1,14 @@
 import pyaudio
 import PySimpleGUI
-from devices.audio_input import AudioInputDevice
-from processors.audio_processor import AudioProcessor
-from processors.display_processor import DisplayProcessor
-from stream.audio_stream import InputAudioStream
+from devices_class.audio_input import AudioInputDevice
+from display_class.audio_formatter import AudioProcessor
+from display_class.simple_gui_display import SimpleGuiDisplay
+from stream_class.audio_stream import InputAudioStream
 
 audioInputDevice = AudioInputDevice(pyAudio=pyaudio.PyAudio())
-inputAudioStream = InputAudioStream(pyaudio=pyaudio, AudioProcessor=AudioProcessor)
-displayProcessor = DisplayProcessor(PySimpleGUI=PySimpleGUI)
+
+inputAudioStream = InputAudioStream(pyaudio=pyaudio)
+
+displayProcessor = SimpleGuiDisplay(PySimpleGUI=PySimpleGUI, 
+									AudioProcessorClass=AudioProcessor)
+
