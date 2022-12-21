@@ -1,16 +1,16 @@
 import PySimpleGUI
 from data.audio_state import audio_state
-from display_class.audio_formatter import AudioProcessor as AudioProcessorType
+from display_class.audio_formatter import AudioFormatter as AudioFormatterType
 
 class SimpleGuiDisplay():
 	"""
-	DISPLAY PROCESSOR
+	DISPLAY PROCESSOR FOR PySimpleGUI library
 	"""
-	def __init__(self, PySimpleGUI: PySimpleGUI, AudioProcessorClass: AudioProcessorType):
+	def __init__(self, PySimpleGUI: PySimpleGUI, AudioFormatterClass: AudioFormatterType):
 		self.sg = PySimpleGUI
 		self.window: PySimpleGUI.Window
-		self.AudioProcessorClass = AudioProcessorClass
-		self.audioProcessor: AudioProcessorType
+		self.AudioFormatterClass = AudioFormatterClass
+		self.audioFormatter: AudioFormatterType
 		
 		self.audio_state: audio_state
 		self.layout_width = 1000
@@ -24,7 +24,7 @@ class SimpleGuiDisplay():
 
 	def init(self, audio_state):
 		self.audio_state = audio_state
-		self.audioProcessor = self.AudioProcessorClass(audio_state['sample_rate'])
+		self.audioFormatter = self.AudioFormatterClass(audio_state['sample_rate'])
 
 	def init_layout(self):
 		layout = [[self.sg.Graph(canvas_size=(self.layout_width, self.layout_height),
@@ -43,7 +43,7 @@ class SimpleGuiDisplay():
 			self.process_formatted_audio()
 
 	def process_formatted_audio(self):
-		formatted_audio = self.audioProcessor.get_formatted_fft(self.audio_state['raw_audio'])
+		formatted_audio = self.audioFormatter.get_formatted_fft(self.audio_state['raw_audio'])
 		
 		for col, val in enumerate(formatted_audio):
 			self.column = col

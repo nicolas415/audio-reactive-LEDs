@@ -1,39 +1,53 @@
 import math
 import numpy as np
 
-class AudioProcessor():
+class AudioFormatter():
 	def __init__(self, sample_rate):
 		self.FFT = np.array([])
 		self.SAMPLE_RATE = sample_rate
 		self.BUFFER_SIZE = np.int16
-		self.DATA_WIDTH = 16
-		self.DATA_HEIGHT = 8
-	
-	def get_formatted_fft(self, in_data):
+		self.COLS = 64
+		self.ROWS = 32
+		self.LOW_BINS_THRESHOLD = 16
+
+
+	def prepare_fft(self, in_data):
 		data_array = np.frombuffer(in_data, dtype=self.BUFFER_SIZE)
 		fft = np.fft.rfft(data_array)
-		formatted_fft = self.format_fft(abs(fft))
-		return formatted_fft
+		return abs(fft)
 
-	def format_fft(self, fft):
-		formatted_bin_size = math.floor(len(fft) / self.DATA_WIDTH)
-		counter = 0
-		accumulator = 0
+
+	def decrease_lower_frequency(self, fft, frequency_index):
+		### first index = first frequency bin (lowest frequency)
+		if frequency_index == 0:
+			return fft[frequency_index] / 10
+		
+		elif frequency_index < 4:
+			return fft[frequency_index] / 3
+		
+		elif frequency_index < 8:
+			return fft[frequency_index] / 2
+		
+		else:
+			return fft[frequency_index]
+
+
+	def get_spectrum(self, in_data):
+		fft = self.prepare_fft(in_data)
 		formatted_fft = np.array([])
 
-		for index in range(fft.size):
-			accumulator = accumulator + fft[index]
-			counter = counter + 1
+		for frequency_index in range(fft.size):
+			### if we itarated over all the matrix's columns, break out the loop
+			if frequency_index > self.COLS:
+				break
 
-			if counter == formatted_bin_size:
-				formatted_fft = np.append(formatted_fft, accumulator)
-				formatted_fft = np.append(formatted_fft, accumulator)
-
-				accumulator = 0
-				counter = 0
+			low_cutted_amplitude = self.decrease_lower_frequency(fft, frequency_index)
+			formatted_fft = np.append(formatted_fft, low_cutted_amplitude)
 		
-		formatted_fft = np.interp(formatted_fft, (0, self.SAMPLE_RATE), (0, self.DATA_HEIGHT))
+		bin_size = 0
+		formatted_fft = np.interp(formatted_fft, (0, self.SAMPLE_RATE), (0, self.ROWS))
 		return np.round(formatted_fft)
+
 
 	
 		

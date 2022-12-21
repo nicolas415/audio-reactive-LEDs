@@ -8,7 +8,7 @@ class InputAudioStream():
 		self.pa = pyaudio
 		self.pyAudio = pyaudio.PyAudio()
 		self.stream: pyaudio.Stream
-		self.DATA_CHUNKS = 1024
+		self.DATA_CHUNKS = 256
 		self.FFT_FREQUENCY_BINS = 16
 		self.SAMPLE_FORMAT = pyaudio.paInt16
 		self.AUDIO_CHANNELS = 1

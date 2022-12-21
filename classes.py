@@ -1,14 +1,14 @@
 import pyaudio
-import PySimpleGUI
+import rgbmatrix
 from devices_class.audio_input import AudioInputDevice
-from display_class.audio_formatter import AudioProcessor
-from display_class.simple_gui_display import SimpleGuiDisplay
+from display_class.audio_formatter import AudioFormatter
+from display_class.rgb_matrix_display import RgbMatrixDisplay
 from stream_class.audio_stream import InputAudioStream
 
 audioInputDevice = AudioInputDevice(pyAudio=pyaudio.PyAudio())
 
 inputAudioStream = InputAudioStream(pyaudio=pyaudio)
 
-displayProcessor = SimpleGuiDisplay(PySimpleGUI=PySimpleGUI, 
-									AudioProcessorClass=AudioProcessor)
+displayProcessor = RgbMatrixDisplay(rgbmatrix=rgbmatrix, 
+									AudioFormatterClass=AudioFormatter)
 
