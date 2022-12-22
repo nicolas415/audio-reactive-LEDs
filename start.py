@@ -1,4 +1,4 @@
 #!/usr/bin/env python
-from src.audio_processor import AudioProcessor
-process = AudioProcessor()
-process.start()
+from src.app import App
+app = App()
+app.start()

@@ -1,6 +1,9 @@
+### class should be buggy
+### instanciate at your own risks !
+
 import PySimpleGUI
-from srrc.data.audio_state import audio_state
-from src.display_class.audio_formatter import AudioFormatter as AudioFormatterType
+from src.data.audio_state import audio_state
+from src.container.classes.stream.audio_formatter import AudioFormatter as AudioFormatterType
 
 class SimpleGuiDisplay():
 	"""
