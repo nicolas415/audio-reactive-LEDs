@@ -2,11 +2,11 @@ import rgbmatrix
 import sys
 import math
 from PIL import Image
-from data.audio_state import audio_state
-from animations.spectrum import SpectrumAnimation
-from display_class.audio_formatter import AudioFormatter as AudioFormatterType
-from animations.samus_anim import SamusAnimation
-from animations.rotate_square import RotateSquareAnimation
+from src.data.audio_state import audio_state
+from src.display_class.audio_formatter import AudioFormatter as AudioFormatterType
+from src.animations.spectrum import SpectrumAnimation
+from src.animations.samus_anim import SamusAnimation
+from src.animations.rotate_square import RotateSquareAnimation
 
 class RgbMatrixDisplay():
     """

@@ -1,7 +1,7 @@
 from typing import Any
 import pyaudio
-from devices_class.audio_input import AudioInputDevice
-from data.audio_state import audio_state
+from src.devices.audio_input import AudioInputDevice
+from src.data.audio_state import audio_state
 
 class InputAudioStream():
 	def __init__(self, pyaudio: pyaudio):
