@@ -7,6 +7,5 @@ from src.container.classes.stream.audio_stream import InputAudioStream
 
 audioInputDevice = AudioInputDevice(pyAudio=pyaudio.PyAudio())
 inputAudioStream = InputAudioStream(pyaudio=pyaudio)
-displayProcessor = RgbMatrixDisplay(rgbmatrix=rgbmatrix, 
-									AudioFormatterClass=AudioFormatter)
+displayProcessor = RgbMatrixDisplay(rgbmatrix=rgbmatrix, AudioFormatterClass=AudioFormatter)
 
