@@ -1,4 +1,3 @@
-from random import expovariate
 import numpy as np
 
 audio_state = { 'raw_audio': np.array([]),
