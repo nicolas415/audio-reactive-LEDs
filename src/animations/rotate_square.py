@@ -45,7 +45,7 @@ class RotateSquareAnimation():
 				if x >= self.min_display and x < self.max_display and y >= self.min_display and y < self.max_display:
 					x_col = self.col_table[x]
 					y_col = self.col_table[y]
-					self.offset_canvas.SetPixel(rot_x + self.cent_x, rot_y + self.cent_y, round(bass_color/2), round(y_col/4), round(x_col/4))
+					self.offset_canvas.SetPixel(rot_x + self.cent_x, rot_y + self.cent_y, round(bass_color/1.5), round(y_col/4), round(x_col/4))
 				else:
 					self.offset_canvas.SetPixel(rot_x + self.cent_x, rot_y + self.cent_y, 0, 0, 0)
 		
