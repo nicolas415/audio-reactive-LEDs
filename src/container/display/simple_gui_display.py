@@ -3,7 +3,7 @@
 
 import PySimpleGUI
 from src.data.audio_state import audio_state
-from src.container.classes.stream.audio_formatter import AudioFormatter as AudioFormatterType
+from src.container.stream.audio_formatter import AudioFormatter as AudioFormatterType
 
 class SimpleGuiDisplay():
 	"""
