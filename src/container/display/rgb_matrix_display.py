@@ -12,17 +12,13 @@ class RgbMatrixDisplay():
     """
     DISPLAY CLASS
     """
-    def __init__(self, rgbmatrix: rgbmatrix, AudioFormatterClass: AudioFormatterType):
+    def __init__(self, rgbmatrix: rgbmatrix, AudioFormatterClass: AudioFormatterType, config):
         self.RGBMatrix = rgbmatrix.RGBMatrix
         self.RGBMatrixOptions = rgbmatrix.RGBMatrixOptions
         self.matrix: rgbmatrix.RGBMatrix()
         self.AudioFormatterClass = AudioFormatterClass
         self.audioFormatter: AudioFormatterType
-        self.bar_size = 4
-        self.bar_padding = 2
-        self.bar_color = [0, 0, 0]
-        self.COLS = 32
-        self.ROWS = 32
+        self.config = config
 
     def init(self, audio_state):
         self.audio_state = audio_state
@@ -30,12 +26,12 @@ class RgbMatrixDisplay():
 
     def init_layout(self):
         options = self.RGBMatrixOptions()
-        options.rows = self.ROWS
-        options.cols = self.COLS
-        options.chain_length = 2
         options.parallel = 1
-        options.brightness = 100
-        options.hardware_mapping = 'adafruit-hat'  # If you have an Adafruit HAT: 'adafruit-hat'
+        options.rows = self.config['matrix_rows']
+        options.cols = self.config['matrix_columns']
+        options.chain_length = self.config['matrix_chain_length']
+        options.brightness = self.config['matrix_brightness']
+        options.hardware_mapping = self.config['matrix_hardware_mapping']  # If you have an Adafruit HAT: 'adafruit-hat'
 
         self.matrix = self.RGBMatrix(options = options)
     

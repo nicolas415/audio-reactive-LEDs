@@ -4,12 +4,12 @@ from src.container.devices.audio_input import AudioInputDevice
 from src.data.audio_state import audio_state
 
 class InputAudioStream():
-	def __init__(self, pyaudio: pyaudio):
+	def __init__(self, pyaudio: pyaudio, config):
 		self.pa = pyaudio
 		self.pyAudio = pyaudio.PyAudio()
 		self.stream: pyaudio.Stream
-		self.DATA_CHUNKS = 256
-		self.FFT_FREQUENCY_BINS = 16
+		self.DATA_CHUNKS = config['stream_data_chunks']
+		self.FFT_FREQUENCY_BINS = config['fft_frequency_bins']
 		self.SAMPLE_FORMAT = pyaudio.paInt16
 		self.AUDIO_CHANNELS = 1
 		self.IS_INPUT = True
