@@ -1,5 +1,5 @@
 {
-    "animation": "rotate_square",
+    "animation_name": "spectrum",
     "input_device_name": "KT USB Audio",
     "stream_data_chunks": 256,
     "fft_frequency_bins": 64,
@@ -8,5 +8,4 @@
     "matrix_chain_length": 2,
     "matrix_brightness": 30,
     "matrix_hardware_mapping": "adafruit-hat"
-
 }
