@@ -2,6 +2,8 @@ import math
 import numpy as np
 
 class RotateSquareAnimation():
+	name = 'rotate_square'
+	
 	def __init__(self, matrix):
 		self.matrix = matrix
 		self.cent_x = self.matrix.width / 2

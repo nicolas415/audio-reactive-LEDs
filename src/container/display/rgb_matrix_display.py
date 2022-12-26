@@ -1,8 +1,10 @@
 import rgbmatrix
 import sys
 import math
+import inspect
 from PIL import Image
 from src.data.audio_state import audio_state
+from src.animations.loader import loadAnimation
 from src.container.stream.audio_formatter import AudioFormatter as AudioFormatterType
 from src.animations.spectrum import SpectrumAnimation
 from src.animations.samus_anim import SamusAnimation
@@ -44,13 +46,20 @@ class RgbMatrixDisplay():
 
     def animate(self):
         self.init_layout()
+
+        Animation = loadAnimation(self.config['animation_name'])
+        if (inspect.isclass(Animation) == False):
+            print(Animation['error_msg'])
+            return # abort animation
+
         ### instanciate animation
         # animation 1
         # rotateSquareAnimation = RotateSquareAnimation(self.matrix)
         # animation 2
         # samusAnimation = SamusAnimation(self.matrix)
         # animation 3
-        spectrumAnimation = SpectrumAnimation(self.matrix)  
+        # spectrumAnimation = SpectrumAnimation(self.matrix) 
+        animation = Animation(self.matrix)
 
         try:
             while True:
@@ -62,8 +71,8 @@ class RgbMatrixDisplay():
                     # animation 2
                     # samusAnimation.animate(formatted_audio)
                     # animation 3
-                    spectrumAnimation.animate(formatted_audio)
-
+                    # spectrumAnimation.animate(formatted_audio)
+                    animation.animate(formatted_audio)
 
         except KeyboardInterrupt:
             sys.exit(0)

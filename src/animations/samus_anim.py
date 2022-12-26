@@ -1,6 +1,8 @@
 from PIL import Image
 
 class SamusAnimation():
+	name = 'samus'
+	
 	def __init__(self, matrix):
 		self.matrix = matrix
 		self.images = [0] * 3

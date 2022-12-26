@@ -1,4 +1,6 @@
 class SpectrumAnimation():
+	name = 'spectrum'
+	
 	def __init__(self, matrix):
 		self.matrix = matrix
 
