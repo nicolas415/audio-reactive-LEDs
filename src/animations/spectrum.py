@@ -5,8 +5,15 @@ class SpectrumAnimation():
 		self.matrix = matrix
 
 	def animate(self, formatted_audio):
-		for x, amplitude in enumerate(formatted_audio):
-			for y in range(len(formatted_audio)):
+		amplitude = 0
+		
+		for x in range(self.matrix.width):
+			for y in range(self.matrix.height):
+				if x >= self.matrix.width/2:
+					amplitude = self.get_mirror_pixel_amplitude(formatted_audio, x+1)
+				else:
+					amplitude = formatted_audio[x]
+				
 				if amplitude < y:
 					#black pixel
 					red = 0
@@ -20,6 +27,9 @@ class SpectrumAnimation():
 				
 				reversed_Y = (self.matrix.height - 1) - y
 				self.matrix.SetPixel(x, reversed_Y, red, green, blue)
+
+	def get_mirror_pixel_amplitude(self, formatted_audio, x):
+		return formatted_audio[self.matrix.width - x]
 	
 	def getColorValue1(self, value):
 		if value * 5 + 100 > 255:
