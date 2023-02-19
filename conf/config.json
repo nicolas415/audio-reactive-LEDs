@@ -1,11 +1,11 @@
 {
     "animation_name": "spectrum",
-    "input_device_name": "KT USB Audio",
-    "stream_data_chunks": 256,
-    "fft_frequency_bins": 64,
+    "input_device_name": "hw:0,0",
+    "stream_data_chunks": 128,
+    "fft_frequency_bins": 128,
     "matrix_columns": 32,
     "matrix_rows": 32,
     "matrix_chain_length": 2,
-    "matrix_brightness": 30,
+    "matrix_brightness": 100,
     "matrix_hardware_mapping": "adafruit-hat"
 }
