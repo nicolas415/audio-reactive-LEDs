@@ -52,13 +52,7 @@ class RgbMatrixDisplay():
             print(Animation['error_msg'])
             return # abort animation
 
-        ### instanciate animation
-        # animation 1
-        # rotateSquareAnimation = RotateSquareAnimation(self.matrix)
-        # animation 2
-        # samusAnimation = SamusAnimation(self.matrix)
-        # animation 3
-        # spectrumAnimation = SpectrumAnimation(self.matrix) 
+
         animation = Animation(self.matrix)
 
         try:
@@ -66,12 +60,6 @@ class RgbMatrixDisplay():
                 if (self.is_audio_stream_ready()):
                     formatted_audio = self.audioFormatter.get_spectrum(self.audio_state['raw_audio'])
                     ### animate
-                    # animation 1
-                    # rotateSquareAnimation.animate(formatted_audio)
-                    # animation 2
-                    # samusAnimation.animate(formatted_audio)
-                    # animation 3
-                    # spectrumAnimation.animate(formatted_audio)
                     animation.animate(formatted_audio)
 
         except KeyboardInterrupt:
