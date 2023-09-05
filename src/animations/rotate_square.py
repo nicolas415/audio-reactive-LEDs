@@ -26,7 +26,7 @@ class RotateSquareAnimation():
 		self.matrix.Fill(0,0,0)
 
 
-	def animate(self, formatted_audio):
+	def animate(self, formatted_audio, animation_loop_counter):
 		bass = formatted_audio[0] 
 		bass_color = np.interp(bass, (0, self.max_display), (0, 255))
 

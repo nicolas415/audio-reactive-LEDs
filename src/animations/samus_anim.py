@@ -15,7 +15,7 @@ class SamusAnimation():
 		self.images[2].thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
 		self.images[0].thumbnail((self.matrix.width, self.matrix.height), Image.ANTIALIAS)
 	
-	def animate(self, formatted_audio):
+	def animate(self, formatted_audio, animation_loop_counter):
 		if (formatted_audio[0] > 15) | (self.bass_hit_counter > 0):
 			if self.bass_hit_counter > 0:
 				self.bass_hit_counter = self.bass_hit_counter - 1
