@@ -4,7 +4,7 @@ class SpectrumAnimation():
 	def __init__(self, matrix):
 		self.matrix = matrix
 
-	def animate(self, formatted_audio):
+	def animate(self, formatted_audio, animation_loop_counter):
 		amplitude = 0
 		
 		for x in range(self.matrix.width):
@@ -19,12 +19,14 @@ class SpectrumAnimation():
 					red = 0
 					green = 0
 					blue = 0
+					
 				else:
 					#colored pixel
 					red = self.getColorValue1(amplitude)
 					green = self.getColorValue2(x)
 					blue = self.getColorValue3(y)
-				
+					red, green, blue = self.progressively_change_colors(red, green, blue, animation_loop_counter)
+
 				reversed_Y = (self.matrix.height - 1) - y
 				self.matrix.SetPixel(x, reversed_Y, red, green, blue)
 
@@ -48,3 +50,29 @@ class SpectrumAnimation():
 			return 255
 		else:
 			return value * 5 + 100
+
+	def progressively_change_colors(self, red, green, blue, count):
+		red = round(red + (count / 5000))
+		blue = round(blue - abs(count / 2000))
+		green = round(green + (count / 2000))
+
+		if (red < 0):
+			red = 0
+		
+		if (green < 0):
+			green = 0
+
+		if (blue < 0):
+			blue = 0
+
+
+		if (red > 255):
+			red = 255
+		
+		if (green > 255):
+			green = 255
+
+		if (blue > 255):
+			blue = 255
+
+		return [red, green, blue]
