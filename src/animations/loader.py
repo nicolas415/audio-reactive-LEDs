@@ -1,7 +1,4 @@
-from src.animations.rotate_square import RotateSquareAnimation
-from src.animations.samus_anim import SamusAnimation
 from src.animations.spectrum import SpectrumAnimation
-from src.animations.spectrum_square import SpectrumSquareAnimation
 
 animations = [
     SpectrumAnimation

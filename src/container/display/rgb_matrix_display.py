@@ -6,9 +6,6 @@ from PIL import Image
 from src.data.audio_state import audio_state
 from src.animations.loader import loadAnimation
 from src.container.stream.audio_formatter import AudioFormatter as AudioFormatterType
-from src.animations.spectrum import SpectrumAnimation
-from src.animations.samus_anim import SamusAnimation
-from src.animations.rotate_square import RotateSquareAnimation
 
 class RgbMatrixDisplay():
     """
