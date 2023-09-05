@@ -6,8 +6,7 @@ from src.animations.spectrum_square import SpectrumSquareAnimation
 animations = [
     RotateSquareAnimation,
     SamusAnimation,
-    SpectrumAnimation,
-    SpectrumSquareAnimation
+    SpectrumAnimation
 ]
 
 def loadAnimation(name):
