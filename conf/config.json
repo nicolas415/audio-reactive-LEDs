@@ -5,6 +5,6 @@
     "matrix_columns": 32,
     "matrix_rows": 32,
     "matrix_chain_length": 2,
-    "matrix_brightness": 75,
+    "matrix_brightness": 50,
     "matrix_hardware_mapping": "adafruit-hat"
 }

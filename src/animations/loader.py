@@ -4,8 +4,6 @@ from src.animations.spectrum import SpectrumAnimation
 from src.animations.spectrum_square import SpectrumSquareAnimation
 
 animations = [
-    RotateSquareAnimation,
-    SamusAnimation,
     SpectrumAnimation
 ]
 
