@@ -16,20 +16,11 @@ class AudioFormatter():
 		fft = np.fft.rfft(data_array)
 		return abs(fft)
 
+	def get_amplitude(self, fft, frequency_index):
+		return fft[frequency_index]
 
 	def decrease_lower_frequency(self, fft, frequency_index):
-		### first index = first frequency bin (lowest frequency)
-		if frequency_index == 0:
-			return fft[frequency_index] / 10
-		
-		elif frequency_index < 4:
-			return fft[frequency_index] / 5
-		
-		elif frequency_index < 8:
-			return fft[frequency_index] / 2.5
-		
-		else:
-			return fft[frequency_index]
+		return fft[frequency_index]
 
 
 	def get_spectrum(self, in_data):
@@ -37,14 +28,11 @@ class AudioFormatter():
 		formatted_fft = np.array([])
 		for frequency_index in range(fft.size):
 			### if we itarated over all the matrix's columns, break out the loop
-			if frequency_index > self.COLS:
+			if frequency_index > self.ROWS:
 				break
-
-			# low_cutted_amplitude = self.decrease_lower_frequency(fft, frequency_index)
-			amplitude = fft[frequency_index]
+			amplitude = self.get_amplitude(fft, frequency_index)
 			formatted_fft = np.append(formatted_fft, amplitude)
 		
-		bin_size = 0
 		formatted_fft = np.interp(formatted_fft, (0, self.SAMPLE_RATE), (0, self.ROWS))
 		return np.round(formatted_fft)
 
