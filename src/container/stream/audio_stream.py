@@ -9,7 +9,7 @@ class InputAudioStream():
 		self.pyAudio = pyaudio.PyAudio()
 		self.stream: pyaudio.Stream
 		self.DATA_CHUNKS = config['stream_data_chunks']
-		self.SAMPLE_FORMAT = pyaudio.paInt32
+		self.SAMPLE_FORMAT = pyaudio.paInt16
 		self.AUDIO_CHANNELS = 1
 		self.IS_INPUT = True
 
