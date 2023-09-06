@@ -18,7 +18,7 @@
 * Manipulated by stream_handler
 
 
-## Classes that processes the audio signal
+## Classes that processes the audio signal ✅
 `display_processing/`
 * takes structured data and settings
 * converts data for the display device
