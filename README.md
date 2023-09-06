@@ -1,4 +1,5 @@
 # Audio Reactive LEDs
+![Audio Reactive LEDs demo](./docs/audio-reactive-leds.gif)
 
 A python program to display audio reactive animations, on a Raspberry Pi equiped with an RGB LEDs matrix.
 You can find instructions to build such a setup in [this tutorial from Adafruit](https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi).
@@ -7,7 +8,7 @@ This program relies on Henner Zeller's [rpi-rgb-led-matrix](https://github.com/h
 
 ## Installation
 ### Install the rgb-led-matrix python binding
-On a Raspberry Pi equiped with an RGB LEDs Matrix, firt clone the Henner Zeller's `rpi-rgb-led-matrix` reposistory : 
+On a Raspberry Pi equiped with an RGB LEDs Matrix, first clone the Henner Zeller's `rpi-rgb-led-matrix` reposistory : 
 
     git clone https://github.com/hzeller/rpi-rgb-led-matrix.git
 
@@ -29,5 +30,3 @@ Modify the configuration inside `.conf/config.json` to match your setup :
 * `matrix_chain_length`: the number of matrix in the setup
 * `matrix_brightness`: the brightness of the LEDs, goes from `0` to `100`
 * `matrix_hardware_mapping`: the name of the electronic card interfacing with le LEDs matrix
-
-![Audio Reactive LEDs demo](./docs/audio-reactive-leds.gif)
