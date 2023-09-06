@@ -25,7 +25,9 @@ class SpectrumAnimation():
 					red = self.getColorValue1(amplitude)
 					green = self.getColorValue2(x)
 					blue = self.getColorValue3(y)
-					red, green, blue = self.progressively_change_colors(red, green, blue, animation_loop_counter)
+
+					green = self.get_counter_relative_color(green, animation_loop_counter, 0.002)
+					blue = self.get_counter_relative_color(blue, animation_loop_counter, 0.001)
 
 				reversed_Y = (self.matrix.height - 1) - y
 				self.matrix.SetPixel(x, reversed_Y, red, green, blue)
@@ -34,16 +36,16 @@ class SpectrumAnimation():
 		return formatted_audio[self.matrix.width - x]
 	
 	def getColorValue1(self, value):
-		if value * 5 + 100 > 255:
+		if value * 8 + 100 > 255:
 			return 255
 		else:
-			return value*5 + 10
+			return value*8 + 10
 
 	def getColorValue2(self, value):
 		if value * 2 - 20 < 0:
 			return 0
 		else:
-			return value * 2 - 20
+			return value * 3 - 20
 
 	def getColorValue3(self, value):
 		if value * 5 + 100 > 255:
@@ -51,28 +53,13 @@ class SpectrumAnimation():
 		else:
 			return value * 5 + 100
 
-	def progressively_change_colors(self, red, green, blue, count):
-		red = round(red + (count / 5000))
-		blue = round(blue - abs(count / 2000))
-		green = round(green + (count / 2000))
-
-		if (red < 0):
-			red = 0
+	def get_counter_relative_color(self, color, count, ratio):
+		color = round(color + count * ratio)
 		
-		if (green < 0):
-			green = 0
+		if (color < 0):
+			color = 0
 
-		if (blue < 0):
-			blue = 0
+		if (color > 255):
+			color = 255
 
-
-		if (red > 255):
-			red = 255
-		
-		if (green > 255):
-			green = 255
-
-		if (blue > 255):
-			blue = 255
-
-		return [red, green, blue]
+		return color
