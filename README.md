@@ -20,6 +20,13 @@ Clone the current repository on your Raspberry Pi :
 
     git clone git@github.com:nicolas415/audio-reactive-LEDs.git
 
+### Install the necessary python librairies
+You will also need `numpy` and `pyaudio` librairies to make this program work. 
+Enter the following command on the Raspberry to install them for `python3` :
+
+    python3 -m pip numpy pyaudio
+
+
 ## Configuration
 
 Modify the configuration inside `./config.json` to match your setup :
