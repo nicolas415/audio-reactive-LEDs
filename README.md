@@ -5,6 +5,7 @@ A python program to display audio reactive animations, on a Raspberry Pi equiped
 You can find instructions to build such a setup in [this tutorial from Adafruit](https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi).
 
 This program relies on Henner Zeller's [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) to interact with the LEDs matrix.
+The LED-matrix library is (c) Henner Zeller [h.zeller@acm.org](h.zeller@acm.org), licensed with [GNU General Public License Version 2.0](http://www.gnu.org/licenses/gpl-2.0.txt)
 
 ## Installation
 ### Install the rgb-led-matrix python binding
