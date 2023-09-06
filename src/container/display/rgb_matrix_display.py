@@ -1,8 +1,6 @@
 import rgbmatrix
 import sys
-import math
 import inspect
-from PIL import Image
 from src.data.audio_state import audio_state
 from src.animations.loader import loadAnimation
 from src.container.stream.audio_formatter import AudioFormatter as AudioFormatterType
