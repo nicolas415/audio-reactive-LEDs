@@ -50,7 +50,6 @@ class RgbMatrixDisplay():
 
         animation = Animation(self.matrix)
         animation_loop_counter = 0
-        increase_counter = True
 
         try:
             while True:
@@ -58,20 +57,25 @@ class RgbMatrixDisplay():
                     formatted_audio = self.audioFormatter.get_spectrum(self.audio_state['raw_audio'])
                     ### animate
                     animation.animate(formatted_audio, animation_loop_counter)
-
-                    if (animation_loop_counter < 10):
-                        increase_counter = True
                     
-                    if (animation_loop_counter > 100000):
-                        increase_counter= False
-                    
-                    if (increase_counter == True):
-                        animation_loop_counter = animation_loop_counter + 10
-                    else:
-                        animation_loop_counter = abs(animation_loop_counter - 10)
-
+                    self.set_animation_loop_counter(animation_loop_counter)
+        
         except KeyboardInterrupt:
             sys.exit(0)
+
+    def set_animation_loop_counter(self, counter):
+        increase_counter = True
+
+        if (counter < 10):
+            increase_counter = True
+        
+        if (counter > 100000):
+            increase_counter= False
+        
+        if (increase_counter == True):
+            counter = counter + 10
+        else:
+            counter = abs(counter - 10)
 
 
 
