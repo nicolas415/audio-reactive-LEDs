@@ -32,6 +32,6 @@ Modify the configuration inside `.conf/config.json` to match your setup :
 * `matrix_hardware_mapping`: the name of the electronic card interfacing with le LEDs matrix
 
 ## Launching the application
-At the root of your Rapberry Pi, enter the following command :
+At the root of the audio-reactive-LEDs project, enter the following command :
 
     sudo ./start.py
