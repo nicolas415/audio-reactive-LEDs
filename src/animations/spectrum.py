@@ -39,7 +39,7 @@ class SpectrumAnimation():
 		if value * 8 + 100 > 255:
 			return 255
 		else:
-			return value*8 + 10
+			return value * 8 + 100
 
 	def getColorValue2(self, value):
 		if value * 2 - 20 < 0:
