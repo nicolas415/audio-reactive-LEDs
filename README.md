@@ -30,3 +30,8 @@ Modify the configuration inside `.conf/config.json` to match your setup :
 * `matrix_chain_length`: the number of matrix in the setup
 * `matrix_brightness`: the brightness of the LEDs, goes from `0` to `100`
 * `matrix_hardware_mapping`: the name of the electronic card interfacing with le LEDs matrix
+
+## Launching the animation
+At the root of your Rapberry Pi, enter the following command :
+
+    sudo ./start.py
