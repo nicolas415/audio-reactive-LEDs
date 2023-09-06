@@ -22,7 +22,7 @@ Clone the current repository on your Raspberry Pi :
 
 ## Configuration
 
-Modify the configuration inside `.conf/config.json` to match your setup :
+Modify the configuration inside `./config.json` to match your setup :
 * `animation_name` : the name of the animtion to display. You should create new animation class with a `name` property, and save them under `./src/animations/` (the app comes with a default spectrogram animation)
 * `input_device_name`: the audio card triggering the animations. You can get a list of the available input devices by entering `arecord -l` on your Raspberry Pi terminal.
 * `stream_data_chunks` the number of audio frames the signal is split into. Increasing the value increases the length of the array containing the audio signal representation
