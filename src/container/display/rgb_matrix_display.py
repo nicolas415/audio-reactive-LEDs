@@ -16,15 +16,15 @@ class RgbMatrixDisplay():
         self.AudioFormatterClass = AudioFormatterClass
         self.audioFormatter: AudioFormatterType
         self.config = config
+        self.animation_loop_counter = 0
+        self.increase_counter = True
 
     # sets the reference to the audio state
     def init(self, audio_state):
         self.audio_state = audio_state
         self.audioFormatter = self.AudioFormatterClass(
             audio_state['sample_rate'],
-            self.config["matrix_rows"],
-            self.config["matrix_columns"],
-            self.config["matrix_chain_length"]
+            self.config["matrix_rows"]
         )
 
     #sets the matrix options provided in config.json
@@ -55,32 +55,29 @@ class RgbMatrixDisplay():
             return # abort animation
 
 
-        animation = Animation(self.matrix)
-        animation_loop_counter = 0
+        animation = Animation(self.matrix, self.config)
 
         try:
             while True:
                 if (self.is_audio_stream_ready()):
                     formatted_audio = self.audioFormatter.get_spectrum(self.audio_state['raw_audio'])
-                    animation.animate(formatted_audio, animation_loop_counter)
-                    self.set_animation_loop_counter(animation_loop_counter)
+                    animation.animate(formatted_audio, self.animation_loop_counter)
+                    self.set_animation_loop_counter()
         
         except KeyboardInterrupt:
             sys.exit(0)
 
-    def set_animation_loop_counter(self, counter):
-        increase_counter = True
-
-        if (counter <= 0):
-            increase_counter = True
+    def set_animation_loop_counter(self):
+        if (self.animation_loop_counter <= 0):
+            self.increase_counter = True
         
-        if (counter >= self.config["animation_iterations_nb"]):
-            increase_counter= False
+        if (self.animation_loop_counter > self.config["animation_iterations_nb"]):
+            self.increase_counter= False
         
-        if (increase_counter == True):
-            counter = counter + 1
+        if (self.increase_counter == True):
+            self.animation_loop_counter = self.animation_loop_counter + 1
         else:
-            counter = abs(counter - 1)
+            self.animation_loop_counter = abs(self.animation_loop_counter - 1)
 
 
 
