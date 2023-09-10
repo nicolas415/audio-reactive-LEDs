@@ -3,6 +3,10 @@ import pyaudio
 from src.container.devices.audio_input import AudioInputDevice
 from src.data.audio_state import audio_state
 
+'''
+Class that handles the audio stream
+Sets the 'raw_audio' key of the audio_state
+'''
 class InputAudioStream():
 	def __init__(self, pyaudio: pyaudio, config):
 		self.pa = pyaudio

@@ -1,6 +1,10 @@
 import math
 import pyaudio as pa
 
+'''
+class that represents an audio input device
+input device is fetched by its name
+'''
 class AudioInputDevice():
 	def __init__(self, pyAudio: pa.PyAudio, config):
 		self.pyAudio = pyAudio
@@ -9,6 +13,7 @@ class AudioInputDevice():
 		self.sample_rate = -1
 		self.config = config
 
+	# only a substring of the device name can be provided
 	def set_device_by_name(self):
 		target_name = self.config['input_device_name']
 		host_info = self.pyAudio.get_host_api_info_by_index(0)

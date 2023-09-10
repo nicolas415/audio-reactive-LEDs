@@ -1,10 +1,11 @@
 {
     "animation_name": "spectrum",
-    "input_device_name": "hw:0,1",
-    "stream_data_chunks": 128,
+    "input_device_name": "hw:1,0",
+    "stream_data_chunks": 512,
+    "animation_iterations_nb": 10000,
     "matrix_columns": 32,
     "matrix_rows": 32,
     "matrix_chain_length": 2,
-    "matrix_brightness": 50,
+    "matrix_brightness": 75,
     "matrix_hardware_mapping": "adafruit-hat"
 }

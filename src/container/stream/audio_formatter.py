@@ -1,15 +1,18 @@
 import math
 import numpy as np
 
+'''
+Takes an audio signal and processes it.
+Returns an array the size of the leds matrix.
+Lengths of the array matchs the matrix length (x axis)
+Values of the array vary between 0 and the matrix height (y axis)
+'''
 class AudioFormatter():
-	def __init__(self, sample_rate):
+	def __init__(self, sample_rate, matrix_rows):
 		self.FFT = np.array([])
 		self.SAMPLE_RATE = sample_rate
 		self.BUFFER_SIZE = np.int16
-		self.COLS = 64
-		self.ROWS = 32
-		self.LOW_BINS_THRESHOLD = 16
-
+		self.ROWS = matrix_rows
 
 	def prepare_fft(self, in_data):
 		data_array = np.frombuffer(in_data, dtype=self.BUFFER_SIZE)
